@@ -15,10 +15,9 @@ public class MSTAnalyzer {
         analyzer.allGraphs = generator.generateAllGraphs();
         analyzer.analyzeGraphs();
         analyzer.saveToCSV();
-        analyzer.saveSummaryCSV();   // Summary statistics
+        analyzer.saveSummaryCSV();
         analyzer.saveToJSON();
 
-        // first 5graphs in gui
         List<Graph> smallGraphs = analyzer.allGraphs.subList(0, Math.min(5, analyzer.allGraphs.size()));
         SwingUtilities.invokeLater(() -> {
             new MSTGUI(smallGraphs).setVisible(true);
@@ -94,17 +93,14 @@ public class MSTAnalyzer {
             resultsByCategory.put("large", new ArrayList<>());
             resultsByCategory.put("xlarge", new ArrayList<>());
 
-            // Group results by category and algorithm
             for (Result result : results) {
                 String category = result.id.split("_")[0];
                 resultsByCategory.get(category).add(result);
             }
 
-            // Calculate averages for each category and algorithm
             for (String category : resultsByCategory.keySet()) {
                 List<Result> categoryResults = resultsByCategory.get(category);
 
-                // Separate Prim and Kruskal results
                 List<Result> primResults = new ArrayList<>();
                 List<Result> kruskalResults = new ArrayList<>();
 
@@ -113,7 +109,6 @@ public class MSTAnalyzer {
                     else kruskalResults.add(result);
                 }
 
-                // Write Prim summary
                 if (!primResults.isEmpty()) {
                     writer.printf("%s,Prim,%.1f,%.1f,%.1f,%.3f,%.1f,%.3f,%.3f\n",
                             category,
@@ -127,7 +122,6 @@ public class MSTAnalyzer {
                     );
                 }
 
-                // Write Kruskal summary
                 if (!kruskalResults.isEmpty()) {
                     writer.printf("%s,Kruskal,%.1f,%.1f,%.1f,%.3f,%.1f,%.3f,%.3f\n",
                             category,

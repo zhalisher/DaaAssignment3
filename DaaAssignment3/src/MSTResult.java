@@ -13,7 +13,6 @@ public class MSTResult {
         this.operations = operations;
     }
 
-    // Getters
     public int getTotalCost() { return totalCost; }
     public List<Edge> getMstEdges() { return mstEdges; }
     public double getExecutionTime() { return executionTime; }
