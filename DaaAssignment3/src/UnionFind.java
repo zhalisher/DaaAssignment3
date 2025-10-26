@@ -28,7 +28,6 @@ public class UnionFind {
         if (rootX == rootY) {
             return false;
         }
-
         operations++;
         if (rank[rootX] < rank[rootY]) {
             parent[rootX] = rootY;
